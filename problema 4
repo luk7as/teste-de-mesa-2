@@ -3,76 +3,42 @@ using System.Globalization;
 
 class Program
 {
-static void Main()
-{
-
-    Console.Write("Informe o valor a ser investido (R$): ");
-    decimal valorPresente = decimal.Parse(Console.ReadLine());
-
-    Console.Write("Informe a taxa de juros (% ao mês): ");
-    decimal taxaJuros = decimal.Parse(Console.ReadLine());
-
-    Console.Write("Informe o período a ser investido em meses: ");
-    int periodoMeses = int.Parse(Console.ReadLine());
-
-    decimal percentualJuros = taxaJuros / 100;
-
-    int mesResgate = 5;
-
-    Console.WriteLine();
-    Console.WriteLine("------------ Tabela de Iteração (Juros Simples) ------------");
-    Console.WriteLine();
-    Console.WriteLine("Mês\tValor\tTaxa%\tn\tValorF(R$)\tRendimento Líquido\tResgate\tSaldo Final");
-
-    int periodoAtual = 0; 
-
-    for (int mes = 1; mes <= periodoMeses; mes++)
+    static void Main()
     {
-        periodoAtual++;
+        decimal valorPresente = 2000m;
+        decimal taxa = 2m;
+        int periodoTotal = 6;
+        int mesResgate = 5;
 
-        decimal valorBase = valorPresente;
+        decimal i = taxa / 100;
+        int periodoAtual = 0;
 
+        Console.WriteLine("Mês\tVP\t\tTaxa\tN\tVF\t\tRendimento\tResgate\t\tSaldo");
 
-        decimal valorFinal = valorBase * (1 + percentualJuros * periodoAtual);
-
-        decimal RendimentoLiquido = valorFinal - valorBase;
-
-        decimal rendimentoRetirado = 0;
-        decimal saldoFinal = valorFinal;
-
-        if (mes == mesResgate)
+        for (int mes = 1; mes <= periodoTotal; mes++)
         {
+            periodoAtual++;
 
-            rendimentoRetirado = RendimentoLiquido;
+            decimal valorFinal = valorPresente * (1 + i * periodoAtual);
+            decimal rendimento = valorFinal - valorPresente;
+            decimal resgate = 0;
+            decimal saldoFinal = valorFinal;
 
+            if (mes == mesResgate)
+            {
+                resgate = rendimento;
+                saldoFinal = valorPresente;
+                valorPresente = saldoFinal;
+                periodoAtual = 0;
+            }
+            else
+            {
+                valorPresente = saldoFinal;
+            }
 
-            saldoFinal = valorFinal - rendimentoRetirado;
-
-
-            valorPresente = saldoFinal;
-
-
-            periodoAtual = 0;
+            Console.WriteLine(
+                $"{mes}\t{valorPresente:C2}\t{taxa}%\t{periodoAtual}\t{valorFinal:C2}\t{rendimento:C2}\t{resgate:C2}\t{saldoFinal:C2}"
+            );
         }
-        else
-        {
-            saldoFinal = valorFinal;
-        }
-
-        Console.WriteLine(string.Format(
-            
-            "{0}\t{1:C2}\t{2:F2}%\t{3}\t{4:C2}\t\t{5:C2}\t\t\t{6:C2}\t\t{7:C2}",
-            mes,
-            valorBase,
-            taxaJuros,
-            periodoAtual == 0 ? mesResgate : periodoAtual,
-            valorFinal,
-            RendimentoLiquido,
-            rendimentoRetirado,
-            saldoFinal
-        ));
     }
-
-    Console.WriteLine("Valor final após investimento" + valorPresente.ToString("C2"));
-}
 }
