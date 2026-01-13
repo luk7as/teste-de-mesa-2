@@ -5,11 +5,13 @@ class Program
 {
     static void Main()
     {
+        CultureInfo cultura = new CultureInfo("pt-BR");
+
         Console.Write("Informe o Valor Futuro (R$): ");
-        decimal valorFuturo = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+        decimal valorFuturo = decimal.Parse(Console.ReadLine(), cultura);
 
         Console.Write("Informe a taxa de juros (% ao mês): ");
-        decimal taxa = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+        decimal taxa = decimal.Parse(Console.ReadLine(), cultura);
 
         Console.Write("Informe o período (meses): ");
         int periodo = int.Parse(Console.ReadLine());
@@ -19,7 +21,7 @@ class Program
         decimal valorPresente = valorFuturo / (1 + i * periodo);
 
         Console.WriteLine();
-        Console.WriteLine("Valor Presente calculado: " + valorPresente.ToString("C2"));
+        Console.WriteLine("Valor Presente calculado: " + valorPresente.ToString("C2", cultura));
         Console.WriteLine($"Taxa: {taxa}%");
         Console.WriteLine($"Período: {periodo} meses");
     }
