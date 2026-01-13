@@ -5,26 +5,29 @@ class Program
 {
     static void Main()
     {
+        
         CultureInfo cultura = new CultureInfo("pt-BR");
 
-        Console.Write("Informe o Valor Futuro (R$): ");
-        decimal valorFuturo = decimal.Parse(Console.ReadLine(), cultura);
+            
+            Console.Write("Valor Futuro (VF): ");
+            decimal valorFuturo = Convert.ToDecimal(Console.ReadLine(), cultura);
 
-        Console.Write("Informe a taxa de juros (% ao mês): ");
-        decimal taxa = decimal.Parse(Console.ReadLine(), cultura);
+            Console.Write("Taxa de Juros (%): ");
+            decimal taxaJuros = Convert.ToDecimal(Console.ReadLine(), cultura);
 
-        Console.Write("Informe o período (meses): ");
-        int periodo = int.Parse(Console.ReadLine());
+            Console.Write("Período (anos): ");
+            int periodo = int.Parse(Console.ReadLine());
 
-        decimal i = taxa / 100;
+            
+            decimal taxa = taxaJuros / 100;
 
-        
-        decimal valorPresente =
-            valorFuturo / (decimal)Math.Pow((double)(1 + i), periodo);
+            
+            // Fórmula: VP = VF / (1 + i)^t
+            decimal valorPresente =
+                valorFuturo / (decimal)Math.Pow((double)(1 + taxa), periodo);
 
-        Console.WriteLine();
-        Console.WriteLine("Valor Presente calculado: " + valorPresente.ToString("C2", cultura));
-        Console.WriteLine($"Taxa: {taxa}% ao mês");
-        Console.WriteLine($"Período: {periodo} meses");
+            
+            Console.WriteLine("\nValor Presente calculado: " +
+                              valorPresente.ToString("C", cultura));
+        }
     }
-}
