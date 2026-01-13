@@ -18,7 +18,7 @@ class Program
 
         decimal i = taxa / 100;
 
-        // Fórmula correta: VP = VF / (1 + i) ^ t
+        
         decimal valorPresente =
             valorFuturo / (decimal)Math.Pow((double)(1 + i), periodo);
 
