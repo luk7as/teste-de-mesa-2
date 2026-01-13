@@ -1,0 +1,20 @@
+using System;
+
+class Program
+{
+static void Main()
+{
+
+    Console.Write("Informe o valor final (R$): ");
+    decimal valorFinal = decimal.Parse(Console.ReadLine());
+
+    int tempo = 2;
+    decimal taxaJuros = 0.0125m; // 1% ao mês  
+    decimal valorInicial =  valorFinal / (1 + taxaJuros * tempo);
+
+    Console.WriteLine($"Valor Inicial: R${valorInicial:F2}");
+    Console.WriteLine($"Tempo: {tempo}Anos");
+    Console.WriteLine($"Taxa de juros: {(taxaJuros * 100):F2}%");
+    Console.ReadLine();
+    }
+}
