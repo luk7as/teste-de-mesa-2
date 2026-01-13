@@ -24,15 +24,22 @@ class Program
 
         for (int mes = 1; mes <= meses; mes++)
         {
-            decimal valorComJuros = valorAtual * (1 + taxa);
-            decimal rendimentoLiquido = valorComJuros - valorPresente;
-            decimal rendaAcumulada = valorComJuros;
+            // Juros compostos
+            valorAtual = valorAtual * (1 + taxa);
+
+            // Rendimento líquido (ganho total até o mês)
+            decimal rendimentoLiquido = valorAtual - valorPresente;
+
+            // Renda acumulada = capital atualizado (NÃO SOMA)
+            decimal rendaAcumulada = valorAtual;
 
             Console.WriteLine(
-                $"{mes,3} | {taxa * 100,9:F2}% | {valorComJuros,11:C2} | {rendimentoLiquido,13:C2} | {rendaAcumulada,15:C2}"
+                $"{mes,3} | {taxa * 100,9:F2}% | {valorAtual,11:C2} | {rendimentoLiquido,13:C2} | {rendaAcumulada,15:C2}"
             );
-
-            valorAtual = valorComJuros;
         }
+
+        Console.WriteLine();
+        Console.WriteLine("Pressione qualquer tecla para sair...");
+        Console.ReadKey();
     }
 }
