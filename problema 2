@@ -5,19 +5,34 @@ class Program
 {
     static void Main()
     {
+        CultureInfo br = new CultureInfo("pt-BR");
+
         Console.Write("Informe o valor presente (R$): ");
-        decimal valorPresente = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+        decimal valorPresente = decimal.Parse(Console.ReadLine(), br);
 
         Console.Write("Informe a taxa de juros (% ao mês): ");
-        decimal taxa = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+        decimal taxa = decimal.Parse(Console.ReadLine(), br) / 100;
 
         Console.Write("Informe o período em meses: ");
-        int periodo = int.Parse(Console.ReadLine());
-
-        decimal i = taxa / 100;
-        decimal valorFuturo = valorPresente * (1 + i * periodo);
+        int meses = int.Parse(Console.ReadLine());
 
         Console.WriteLine();
-        Console.WriteLine("Valor Futuro: " + valorFuturo.ToString("C2"));
+        Console.WriteLine("Mês | Taxa Juros | Rendimento | Rend. Líquido | Renda Acumulada");
+        Console.WriteLine("---------------------------------------------------------------");
+
+        decimal valorAtual = valorPresente;
+
+        for (int mes = 1; mes <= meses; mes++)
+        {
+            decimal valorComJuros = valorAtual * (1 + taxa);
+            decimal rendimentoLiquido = valorComJuros - valorPresente;
+            decimal rendaAcumulada = valorComJuros;
+
+            Console.WriteLine(
+                $"{mes,3} | {taxa * 100,9:F2}% | {valorComJuros,11:C2} | {rendimentoLiquido,13:C2} | {rendaAcumulada,15:C2}"
+            );
+
+            valorAtual = valorComJuros;
+        }
     }
 }
