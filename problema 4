@@ -5,49 +5,43 @@ class Program
 {
     static void Main()
     {
-        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pt-BR");
+        CultureInfo cultura = new CultureInfo("pt-BR");
 
-        Console.Write("Informe o valor inicial: ");
-        decimal valorPresente = decimal.Parse(Console.ReadLine());
+        Console.Write("Informe o valor do depósito mensal: ");
+        decimal deposito = decimal.Parse(Console.ReadLine(), cultura);
 
         Console.Write("Informe a taxa de juros (% ao mês): ");
-        decimal taxa = decimal.Parse(Console.ReadLine());
+        decimal taxa = decimal.Parse(Console.ReadLine(), cultura);
 
-        Console.Write("Informe o tempo total (em meses): ");
-        int periodoTotal = int.Parse(Console.ReadLine());
+        Console.Write("Informe o total de meses: ");
+        int totalMeses = int.Parse(Console.ReadLine());
 
-        Console.Write("Informe o mês do resgate: ");
+        Console.Write("Informe o mês do resgate (0 se não houver): ");
         int mesResgate = int.Parse(Console.ReadLine());
 
         decimal i = taxa / 100;
-        int periodoAtual = 0;
+        decimal saldo = 0;
 
         Console.WriteLine();
-        Console.WriteLine("Mês\tVP\t\tTaxa\tN\tVF\t\tRendimento\tResgate\t\tSaldo");
+        Console.WriteLine("Mês\tDepósito\tJuros\t\tRendimento\tResgate\t\tSaldo");
 
-        for (int mes = 1; mes <= periodoTotal; mes++)
+        for (int mes = 1; mes <= totalMeses; mes++)
         {
-            periodoAtual++;
+            saldo += deposito;
 
-            decimal valorFinal = valorPresente * (1 + i * periodoAtual);
-            decimal rendimento = valorFinal - valorPresente;
+            decimal juros = saldo * i;
+            saldo += juros;
+
             decimal resgate = 0;
-            decimal saldoFinal = valorFinal;
 
             if (mes == mesResgate)
             {
-                resgate = rendimento;
-                saldoFinal = valorPresente;
-                valorPresente = saldoFinal;
-                periodoAtual = 0;
-            }
-            else
-            {
-                valorPresente = saldoFinal;
+                resgate = saldo;
+                saldo = 0;
             }
 
             Console.WriteLine(
-                $"{mes}\t{valorPresente:C2}\t{taxa}%\t{periodoAtual}\t{valorFinal:C2}\t{rendimento:C2}\t{resgate:C2}\t{saldoFinal:C2}"
+                $"{mes}\t{deposito.ToString("C2", cultura)}\t{juros.ToString("C2", cultura)}\t{juros.ToString("C2", cultura)}\t{resgate.ToString("C2", cultura)}\t{saldo.ToString("C2", cultura)}"
             );
         }
 
