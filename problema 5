@@ -1,20 +1,26 @@
 using System;
+using System.Globalization;
 
 class Program
 {
-static void Main()
-{
+    static void Main()
+    {
+        Console.Write("Informe o Valor Futuro (R$): ");
+        decimal valorFuturo = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-    Console.Write("Informe o valor final (R$): ");
-    decimal valorFinal = decimal.Parse(Console.ReadLine());
+        Console.Write("Informe a taxa de juros (% ao mês): ");
+        decimal taxa = decimal.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-    int tempo = 2;
-    decimal taxaJuros = 0.0125m; // 1% ao mês  
-    decimal valorInicial =  valorFinal / (1 + taxaJuros * tempo);
+        Console.Write("Informe o período (meses): ");
+        int periodo = int.Parse(Console.ReadLine());
 
-    Console.WriteLine($"Valor Inicial: R${valorInicial:F2}");
-    Console.WriteLine($"Tempo: {tempo}Anos");
-    Console.WriteLine($"Taxa de juros: {(taxaJuros * 100):F2}%");
-    Console.ReadLine();
+        decimal i = taxa / 100;
+
+        decimal valorPresente = valorFuturo / (1 + i * periodo);
+
+        Console.WriteLine();
+        Console.WriteLine("Valor Presente calculado: " + valorPresente.ToString("C2"));
+        Console.WriteLine($"Taxa: {taxa}%");
+        Console.WriteLine($"Período: {periodo} meses");
     }
 }
