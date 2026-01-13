@@ -21,18 +21,16 @@ class Program
         Console.WriteLine("---------------------------------------------------------------");
 
         decimal valorAnterior = valorPresente;
-        decimal valorAtual;
-        decimal rendaAcumulada = 0;
+        decimal rendaAcumulada = valorPresente;
 
         for (int mes = 1; mes <= meses; mes++)
         {
-            // Aplica juros compostos
-            valorAtual = valorAnterior * (1 + taxa);
+            decimal valorAtual = valorAnterior * (1 + taxa);
 
-            // Ganho apenas do mês
+            // ganho do mês
             decimal rendimentoLiquido = valorAtual - valorAnterior;
 
-            // Soma dos ganhos
+            // renda acumulada = VP + soma dos ganhos
             rendaAcumulada += rendimentoLiquido;
 
             Console.WriteLine(
