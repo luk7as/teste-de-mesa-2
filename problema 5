@@ -18,11 +18,13 @@ class Program
 
         decimal i = taxa / 100;
 
-        decimal valorPresente = valorFuturo / (1 + i * periodo);
+        // Fórmula correta: VP = VF / (1 + i) ^ t
+        decimal valorPresente =
+            valorFuturo / (decimal)Math.Pow((double)(1 + i), periodo);
 
         Console.WriteLine();
         Console.WriteLine("Valor Presente calculado: " + valorPresente.ToString("C2", cultura));
-        Console.WriteLine($"Taxa: {taxa}%");
+        Console.WriteLine($"Taxa: {taxa}% ao mês");
         Console.WriteLine($"Período: {periodo} meses");
     }
 }
