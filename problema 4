@@ -5,14 +5,24 @@ class Program
 {
     static void Main()
     {
-        decimal valorPresente = 2000m;
-        decimal taxa = 2m;
-        int periodoTotal = 6;
-        int mesResgate = 5;
+        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pt-BR");
+
+        Console.Write("Informe o valor inicial: ");
+        decimal valorPresente = decimal.Parse(Console.ReadLine());
+
+        Console.Write("Informe a taxa de juros (% ao mês): ");
+        decimal taxa = decimal.Parse(Console.ReadLine());
+
+        Console.Write("Informe o tempo total (em meses): ");
+        int periodoTotal = int.Parse(Console.ReadLine());
+
+        Console.Write("Informe o mês do resgate: ");
+        int mesResgate = int.Parse(Console.ReadLine());
 
         decimal i = taxa / 100;
         int periodoAtual = 0;
 
+        Console.WriteLine();
         Console.WriteLine("Mês\tVP\t\tTaxa\tN\tVF\t\tRendimento\tResgate\t\tSaldo");
 
         for (int mes = 1; mes <= periodoTotal; mes++)
@@ -40,5 +50,7 @@ class Program
                 $"{mes}\t{valorPresente:C2}\t{taxa}%\t{periodoAtual}\t{valorFinal:C2}\t{rendimento:C2}\t{resgate:C2}\t{saldoFinal:C2}"
             );
         }
+
+        Console.ReadLine();
     }
 }
