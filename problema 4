@@ -5,46 +5,58 @@ class Program
 {
     static void Main()
     {
+        
         CultureInfo cultura = new CultureInfo("pt-BR");
 
-        Console.Write("Informe o valor do depósito mensal: ");
-        decimal deposito = decimal.Parse(Console.ReadLine(), cultura);
+            
+            Console.Write("Valor Presente: ");
+            decimal valorPresente = Convert.ToDecimal(Console.ReadLine(), cultura);
 
-        Console.Write("Informe a taxa de juros (% ao mês): ");
-        decimal taxa = decimal.Parse(Console.ReadLine(), cultura);
+            Console.Write("Taxa de Juros (% a.m.): ");
+            decimal taxaJuros = Convert.ToDecimal(Console.ReadLine(), cultura);
 
-        Console.Write("Informe o total de meses: ");
-        int totalMeses = int.Parse(Console.ReadLine());
+            Console.Write("Período (meses): ");
+            int meses = int.Parse(Console.ReadLine());
 
-        Console.Write("Informe o mês do resgate (0 se não houver): ");
-        int mesResgate = int.Parse(Console.ReadLine());
+            
+            decimal taxa = taxaJuros / 100;
 
-        decimal i = taxa / 100;
-        decimal saldo = 0;
+            
+            decimal saldo = valorPresente;
 
-        Console.WriteLine();
-        Console.WriteLine("Mês\tDepósito\tJuros\t\tRendimento\tResgate\t\tSaldo");
+            Console.WriteLine("\nvalor | taxa | mês | rendimento | renda líquida | renda acumulada | resgate | saldo final");
 
-        for (int mes = 1; mes <= totalMeses; mes++)
-        {
-            saldo += deposito;
-
-            decimal juros = saldo * i;
-            saldo += juros;
-
-            decimal resgate = 0;
-
-            if (mes == mesResgate)
+            
+            for (int mes = 0; mes <= meses; mes++)
             {
-                resgate = saldo;
-                saldo = 0;
+                
+                decimal rendimento = saldo * taxa;
+
+                
+                decimal rendaLiquida = rendimento;
+
+                
+                decimal rendaAcumulada = saldo + rendimento;
+
+                
+                decimal resgate = 0;
+                if (mes == 5)
+                {
+                    resgate = 1000;
+                }
+
+                
+                decimal saldoFinal = rendaAcumulada - resgate;
+
+                
+                Console.WriteLine(
+                    $"{valorPresente.ToString("C", cultura)} | {taxaJuros}% | {mes} | " +
+                    $"{rendimento.ToString("C", cultura)} | {rendaLiquida.ToString("C", cultura)} | " +
+                    $"{rendaAcumulada.ToString("C", cultura)} | {resgate.ToString("C", cultura)} | {saldoFinal.ToString("C", cultura)}"
+                );
+
+                
+                saldo = saldoFinal;
             }
-
-            Console.WriteLine(
-                $"{mes}\t{deposito.ToString("C2", cultura)}\t{juros.ToString("C2", cultura)}\t{juros.ToString("C2", cultura)}\t{resgate.ToString("C2", cultura)}\t{saldo.ToString("C2", cultura)}"
-            );
         }
-
-        Console.ReadLine();
     }
-}
