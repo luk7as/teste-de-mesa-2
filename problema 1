@@ -1,0 +1,29 @@
+using System;
+
+namespace testeDeMesaP2_1
+{
+internal class Program
+{
+static void Main(string[] args)
+{
+Console.WriteLine("Digite o valor presente:");
+decimal valorPresente = decimal.Parse(Console.ReadLine());
+
+            Console.WriteLine("Digite a taxa de juros (%):");
+            decimal taxaJuros = decimal.Parse(Console.ReadLine()) / 100;
+
+            Console.WriteLine("Digite o período em meses:");
+            int periodoMes = int.Parse(Console.ReadLine());
+
+            decimal valorFinal = valorPresente *
+                (decimal)Math.Pow((double)(1 + taxaJuros), periodoMes);
+
+        Console.WriteLine("valorPresente\ttaxaJuros\tperiodoMes\tvalor F");
+
+        Console.WriteLine(
+            $"R$ {valorPresente:F2}\t\t{taxaJuros * 100:F2}%\t\t{periodoMes}\t\tR$ {valorFinal:F2}"
+        );
+
+        }
+    }
+}
