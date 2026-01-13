@@ -20,22 +20,26 @@ class Program
         Console.WriteLine("Mês | Taxa Juros | Rendimento | Rend. Líquido | Renda Acumulada");
         Console.WriteLine("---------------------------------------------------------------");
 
-        decimal valorAtual = valorPresente;
+        decimal valorAnterior = valorPresente;
+        decimal valorAtual;
+        decimal rendaAcumulada = 0;
 
         for (int mes = 1; mes <= meses; mes++)
         {
-            // Juros compostos
-            valorAtual = valorAtual * (1 + taxa);
+            // Aplica juros compostos
+            valorAtual = valorAnterior * (1 + taxa);
 
-            // Rendimento líquido (ganho total até o mês)
-            decimal rendimentoLiquido = valorAtual - valorPresente;
+            // Ganho apenas do mês
+            decimal rendimentoLiquido = valorAtual - valorAnterior;
 
-            // Renda acumulada = capital atualizado (NÃO SOMA)
-            decimal rendaAcumulada = valorAtual;
+            // Soma dos ganhos
+            rendaAcumulada += rendimentoLiquido;
 
             Console.WriteLine(
                 $"{mes,3} | {taxa * 100,9:F2}% | {valorAtual,11:C2} | {rendimentoLiquido,13:C2} | {rendaAcumulada,15:C2}"
             );
+
+            valorAnterior = valorAtual;
         }
 
         Console.WriteLine();
